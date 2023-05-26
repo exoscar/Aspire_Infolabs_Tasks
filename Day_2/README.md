@@ -1,4 +1,4 @@
-This script finds How many prime numbers between 0 and 10 million have consecutive digits with a difference of one
+This script determines the count of prime numbers between 0 and n (where n is a specified number) that have consecutive digits with a difference of one.
 
 To run this file<br>
   1.Download the One_Digit_Difference.html file.<br>
