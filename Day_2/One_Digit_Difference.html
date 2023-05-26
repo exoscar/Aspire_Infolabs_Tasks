@@ -1,0 +1,69 @@
+<script>
+  /*
+   * Author: Sai Charan
+   * Date: May 26, 2023
+   * Description: This script finds How many prime numbers between 0 and 10 million have consecutive digits with a difference of one?
+   */
+
+  /*
+   * @param  {number} n - Upper limit to find prime numbers
+   * @return {array<numbers>} primy - array of prime from 1 to n
+   */
+  function getPrimes(n) {
+    let primy = []; // Array to store prime numbers
+    let prime = new Array(n + 1).fill(true); // Array to track prime status
+    //sieve of Eratosthenes
+    let p = 2;
+    while (p * p <= n) {
+      if (prime[p] == true) {
+        for (let i = p * p; i <= n; i += p) {
+          prime[i] = false; //mark multiples of prime as non-prime
+        }
+      }
+      p += 1;
+    }
+    for (let p = 2; p <= n; p++) {
+      if (prime[p]) {
+        primy.push(p);
+      }
+    }
+    return primy;
+  }
+  /*
+   * @param {number} n - number which is to be checked whether the number is Odd number or not
+   * @return boolean - whether the n is odd number or not
+   */
+  function isOddNumber(n) {
+    n = n.toString();
+    if (n.length == 1) {
+      return true;
+    }
+    for (let i = 0; i < n.length - 1; i++) {
+      if (Math.abs(parseInt(n[i]) - parseInt(n[i + 1])) != 1) {
+        return false; // non-consecutive adjacent digits found
+      }
+    }
+    return true; //n is Odd Number
+  }
+
+  try {
+    let numberr = parseInt(prompt("Enter number")); //Get input from user
+    if (numberr < 0) throw "Enter Number greater than 0";
+    if (isNaN(numberr)) throw "Enter Valid Input";
+
+    let start = Date.now(); // start measuring execution time
+    let k = 0; // Counter to count Odd Numbers
+    let prime_numbers = getPrimes(numberr);
+    for (let i of prime_numbers) {
+      if (isOddNumber(i)) {
+        console.log(i);
+        k += 1;
+      }
+    }
+    console.log("Number of Odd Numbers from 0 to " + numberr + " : " + k);
+    let end = Date.now(); // Stop measuring execution time
+    console.log("Execution Time: " + (end - start) / 1000);
+  } catch (err) {
+    console.log(err); //Handle any errors that occur
+  }
+</script>
